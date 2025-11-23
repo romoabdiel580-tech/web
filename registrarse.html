@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Petlink - Registro</title>
+<style>
+body {
+  font-family: "Helvetica Neue", Arial, sans-serif;
+  background-color: #fff;
+  margin: 0;
+  text-align: center;
+}
+.header {
+  background-color: #6ec6d9;
+  padding: 20px;
+  border-radius: 10px;
+  margin: 20px;
+  color: white;
+}
+h1 {
+  font-size: 32px;
+  margin: 0;
+}
+form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 20px;
+}
+label {
+  display: block;
+  margin-bottom: 5px;
+  text-align: left;
+  width: 300px;
+}
+input {
+  width: 300px;
+  padding: 10px;
+  margin-bottom: 15px;
+  border-radius: 10px;
+  border: 2px solid #6ec6d9;
+}
+.boton {
+  background-color: #6ec6d9;
+  border: none;
+  border-radius: 15px;
+  padding: 12px 30px;
+  cursor: pointer;
+  color: white;
+  font-size: 16px;
+  margin-top: 10px;
+}
+.boton:hover {
+  background-color: #5bbcd0;
+}
+a {
+  color: #6ec6d9;
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: underline;
+}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>Registro Petlink</h1>
+</div>
+
+<form id="registroForm" action="#" method="POST">
+  <label for="nombre">Nombre:</label>
+  <input type="text" id="nombre" required>
+
+  <label for="apellido">Apellido:</label>
+  <input type="text" id="apellido" required>
+
+  <label for="correo">Correo electrónico:</label>
+  <input type="email" id="correo" required>
+
+  <label for="contraseña">Contraseña:</label>
+  <input type="password" id="contraseña" required>
+
+  <button type="submit" class="boton">Registrarse</button>
+</form>
+
+<p>¿Ya tienes cuenta? <a href="inicio_de_sesion.html">Inicia sesión</a></p>
+
+<script>
+document.getElementById("registroForm").addEventListener("submit", e => {
+  e.preventDefault();
+
+  const nombre = document.getElementById("nombre").value.trim();
+  const apellido = document.getElementById("apellido").value.trim();
+  const correo = document.getElementById("correo").value.trim();
+  const contraseña = document.getElementById("contraseña").value.trim();
+
+  if (nombre && apellido && correo && contraseña) {
+    const usuario = { nombre, apellido, correo, contraseña };
+
+    // Guardar lista de usuarios
+    const usuarios = JSON.parse(localStorage.getItem("usuarios")) || [];
+    usuarios.push(usuario);
+    localStorage.setItem("usuarios", JSON.stringify(usuarios));
+
+    // Guardar usuario activo
+    localStorage.setItem("usuarioActivo", JSON.stringify(usuario));
+
+    alert("Registro exitoso 🎉");
+    window.location.href = "index.html"; // Redirige al inicio
+  } else {
+    alert("Por favor, completa todos los campos.");
+  }
+});
+</script>
+
+</body>
+</html>
+
+

@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mi Cuenta - PETLINK</title>
+<style>
+  body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f0f2f5;
+  }
+
+  header {
+    background-color: #66c3d6;
+    padding: 15px 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: white;
+  }
+
+  header h1 {
+    margin: 0;
+  }
+
+  #miCuenta {
+    max-width: 700px;
+    margin: 40px auto;
+    background: #fff;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 3px 8px rgba(0,0,0,0.2);
+  }
+
+  #miCuenta h2 {
+    text-align: center;
+    color: #2b2b2b;
+    margin-bottom: 25px;
+  }
+
+  #miCuenta p {
+    font-size: 16px;
+    color: #333;
+    margin: 10px 0;
+  }
+
+  #miCuenta input {
+    width: 100%;
+    padding: 8px 10px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    margin-top: 5px;
+    font-size: 15px;
+    display: none;
+  }
+
+  .btn-container {
+    margin-top: 30px;
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .btn {
+    padding: 10px 16px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 14px;
+    transition: 0.3s;
+  }
+
+  .btn-editar { background-color: #66c3d6; color: white; }
+  .btn-editar:hover { background-color: #55a8b9; }
+
+  .btn-guardar { background-color: #2ecc71; color: white; }
+  .btn-guardar:hover { background-color: #27ae60; }
+
+  .btn-cambiar { background-color: #ff6b6b; color: white; }
+  .btn-cambiar:hover { background-color: #e74c3c; }
+
+  .btn-inicio { background-color: #6fc0cf; color: white; }
+  .btn-inicio:hover { background-color: #57aab5; }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>PETLINK</h1>
+</header>
+
+<div id="miCuenta">
+  <h2>👤 Mi Cuenta</h2>
+
+  <div>
+    <p><strong>Nombre de usuario:</strong> <span id="usuarioNombre">Usuario</span></p>
+    <input type="text" id="inputNombre">
+
+    <p><strong>Correo electrónico:</strong> <span id="usuarioCorreo">usuario@ejemplo.com</span></p>
+    <input type="email" id="inputCorreo">
+
+    <p><strong>Fecha de registro:</strong> <span id="fechaRegistro">01/01/2025</span></p>
+  </div>
+
+  <div class="btn-container">
+    <button class="btn btn-editar" id="editarBtn">✏️ Editar datos</button>
+    <button class="btn btn-guardar" id="guardarBtn" style="display:none;">💾 Guardar cambios</button>
+    <button class="btn btn-cambiar" id="cambiarPassBtn">🔒 Cambiar contraseña</button>
+    <button class="btn btn-inicio" id="inicioBtn">🏠 Volver al inicio</button>
+  </div>
+</div>
+
+<script>
+// Inicializar datos del usuario desde localStorage
+document.addEventListener("DOMContentLoaded", () => {
+  const usuarioActivo = localStorage.getItem("usuarioActivo") || "Usuario";
+  const correoGuardado = localStorage.getItem("usuarioCorreo") || `${usuarioActivo.toLowerCase()}@mail.com`;
+  const fechaRegistro = localStorage.getItem("fechaRegistro") || "01/11/2025";
+
+  document.getElementById("usuarioNombre").textContent = usuarioActivo;
+  document.getElementById("usuarioCorreo").textContent = correoGuardado;
+  document.getElementById("fechaRegistro").textContent = fechaRegistro;
+
+  document.getElementById("inputNombre").value = usuarioActivo;
+  document.getElementById("inputCorreo").value = correoGuardado;
+});
+
+// Botones
+const editarBtn = document.getElementById("editarBtn");
+const guardarBtn = document.getElementById("guardarBtn");
+const cambiarPassBtn = document.getElementById("cambiarPassBtn");
+const inicioBtn = document.getElementById("inicioBtn");
+const nombreSpan = document.getElementById("usuarioNombre");
+const correoSpan = document.getElementById("usuarioCorreo");
+const inputNombre = document.getElementById("inputNombre");
+const inputCorreo = document.getElementById("inputCorreo");
+
+// Editar datos
+editarBtn.addEventListener("click", () => {
+  inputNombre.style.display = "block";
+  inputCorreo.style.display = "block";
+  nombreSpan.style.display = "none";
+  correoSpan.style.display = "none";
+  guardarBtn.style.display = "inline-block";
+  editarBtn.style.display = "none";
+});
+
+// Guardar cambios
+guardarBtn.addEventListener("click", () => {
+  const nuevoNombre = inputNombre.value.trim();
+  const nuevoCorreo = inputCorreo.value.trim();
+
+  if (!nuevoNombre || !nuevoCorreo) return alert("Los campos no pueden estar vacíos.");
+
+  // Guardar en localStorage
+  localStorage.setItem("usuarioActivo", nuevoNombre);
+  localStorage.setItem("usuarioCorreo", nuevoCorreo);
+
+  // Actualizar pantalla
+  nombreSpan.textContent = nuevoNombre;
+  correoSpan.textContent = nuevoCorreo;
+  inputNombre.style.display = "none";
+  inputCorreo.style.display = "none";
+  nombreSpan.style.display = "inline";
+  correoSpan.style.display = "inline";
+  guardarBtn.style.display = "none";
+  editarBtn.style.display = "inline-block";
+
+  alert("Datos actualizados correctamente.");
+});
+
+// Cambiar contraseña
+cambiarPassBtn.addEventListener("click", () => {
+  const nuevaPass = prompt("Ingresa tu nueva contraseña:");
+  if (nuevaPass) {
+    localStorage.setItem("usuarioPassword", nuevaPass);
+    alert("Contraseña cambiada correctamente.");
+  }
+});
+
+// Volver al inicio
+inicioBtn.addEventListener("click", () => {
+    window.location.href = "index.html"; // Cambia "index.html" si tu página principal tiene otro nombre
+});
+</script>
+
+</body>
+</html>
+

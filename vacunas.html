@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PETLINK</title>
+
+<style>
+    body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+        background-color: #dcdcdc;
+    }
+
+    header {
+        background-color: #71c7d4;
+        padding: 20px;
+        color: white;
+        font-size: 24px;
+        font-weight: bold;
+        text-align: right;
+        position: relative;
+    }
+
+    .back-arrow {
+        position: absolute;
+        left: 20px;
+        top: 50%;
+        transform: translateY(-50%);
+        font-size: 40px;
+        cursor: pointer;
+        color: white;
+        user-select: none;
+    }
+
+    nav {
+        display: flex;
+        background-color: #e3e3e3;
+    }
+
+    nav a {
+        flex: 1;
+        padding: 15px;
+        text-align: center;
+        text-decoration: none;
+        color: black;
+        font-size: 18px;
+        border-right: 1px solid #bbb;
+    }
+
+    nav a:last-child {
+        border-right: none;
+    }
+
+    .contenido {
+        width: 60%;
+        margin: auto;
+        background-color: white;
+        margin-top: 20px;
+        padding: 40px 20px;
+        border-radius: 10px;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        text-align: center;
+    }
+
+    .titulo-card {
+        background-color: white;
+        padding: 18px;
+        border-radius: 10px;
+        font-size: 22px;
+        box-shadow: 0px 2px 5px rgba(0,0,0,0.2);
+        margin-bottom: 40px;
+    }
+
+    .btn-consultar {
+        background-color: #71c7d4;
+        color: white;
+        padding: 12px 28px;
+        border-radius: 10px;
+        border: none;
+        font-size: 18px;
+        cursor: pointer;
+        box-shadow: 0px 4px 6px rgba(0,0,0,0.2);
+        transition: 0.2s;
+    }
+
+    .btn-consultar:hover {
+        background-color: #5cb3c0;
+    }
+
+    .formulario {
+        width: 60%;
+        margin: 30px auto;
+        background: white;
+        padding: 40px 20px;
+        border-radius: 10px;
+        box-shadow: 0px 2px 5px rgba(0,0,0,0.2);
+        display: none;
+    }
+
+    .grupo {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 20px;
+    }
+
+    .grupo label {
+        width: 50%;
+    }
+
+    .grupo input {
+        width: 45%;
+        height: 35px;
+        border-radius: 8px;
+        border: 1px solid #ccc;
+        padding-left: 8px;
+        box-shadow: 0px 1px 3px rgba(0,0,0,0.2);
+    }
+
+    .grupo-full {
+        text-align: left;
+        margin-bottom: 25px;
+    }
+
+    .grupo-full input {
+        width: 100%;
+        height: 35px;
+        border-radius: 8px;
+        border: 1px solid #ccc;
+        padding-left: 8px;
+        box-shadow: 0px 1px 3px rgba(0,0,0,0.2);
+    }
+
+    .flecha {
+        text-align: center;
+        font-size: 45px;
+        margin-top: 20px;
+        cursor: pointer;
+        color: #444;
+    }
+
+</style>
+</head>
+
+<body>
+
+<header>
+    <div class="back-arrow" onclick="window.history.back();">&#8592;</div>
+    PETLINK
+</header>
+
+<nav>
+    <a href="index.html">Inicio</a>
+    <a href="perreras.html">Perreras</a>
+    <a href="usuarios.html">Usuarios</a>
+    <a href="sobrenosotros.html">Sobre nosotros</a>
+    <a href="cuidado.html">cuidado de mascota</a>
+</nav>
+
+<div class="contenido">
+    <div class="titulo-card">Campañas de vacunación</div>
+
+    <button class="btn-consultar" onclick="mostrarFormulario()">Consultar</button>
+</div>
+
+<!-- FORMULARIO -->
+<div id="formularioCampanas" class="formulario">
+
+    <div class="grupo">
+        <label>Fecha:</label>
+        <input type="text">
+        
+        <label>Nombre:</label>
+        <input type="text">
+    </div>
+
+    <div class="grupo-full">
+        <label>Horarios:</label>
+        <input type="text">
+    </div>
+
+    <div class="flecha" onclick="mostrarVeterinarias()">&#x25BC;</div>
+</div>
+
+<!-- SECCIÓN VETERINARIAS -->
+<div id="seccionVeterinarias" class="formulario" style="display:none; text-align:center;">
+
+    <div class="titulo-card" style="display:flex; justify-content:center; align-items:center; gap:10px;">
+        Consulta las veterinarias cercanas aquí 
+        <span style="font-size:24px; color:red;">📍</span>
+    </div>
+
+    <div class="flecha" onclick="mostrarBusqueda()">&#x25BC;</div>
+</div>
+
+<!-- SECCIÓN BUSCAR + MAPA -->
+<div id="buscarVeterinarias" class="formulario" style="display:none; text-align:center;">
+
+    <h3>Buscar veterinaria cercana</h3>
+
+    <input 
+        id="textoBusqueda"
+        type="text"
+        placeholder="Ejemplo: Veterinaria del Sol"
+        style="width:90%; height:35px; border-radius:8px; border:1px solid #ccc; padding-left:10px; margin-bottom:20px;">
+    
+    <button class="btn-consultar" onclick="buscarEnMapa()">Buscar</button>
+
+    <div id="mapa" style="margin-top:25px; display:none;">
+        <iframe 
+            id="iframeMapa"
+            width="100%" 
+            height="350" 
+            style="border:0; border-radius:10px; box-shadow:0 2px 5px rgba(0,0,0,0.2);" 
+            allowfullscreen 
+            loading="lazy">
+        </iframe>
+    </div>
+</div>
+
+<script>
+function buscarEnMapa() {
+    const lugar = document.getElementById("textoBusqueda").value.trim();
+
+    if (lugar === "") {
+        alert("Escribe el nombre de una veterinaria o lugar para buscar.");
+        return;
+    }
+
+    // URL SIN API KEY (100% funcional)
+    const url = "https://www.google.com/maps?q=" 
+                + encodeURIComponent(lugar + " La Paz BCS") 
+                + "&output=embed";
+
+    document.getElementById("iframeMapa").src = url;
+    document.getElementById("mapa").style.display = "block";
+
+    window.scrollBy({ top: 400, behavior: "smooth" });
+}
+
+
+function mostrarFormulario() {
+    document.getElementById("formularioCampanas").style.display = "block";
+}
+
+function mostrarVeterinarias() {
+    document.getElementById("seccionVeterinarias").style.display = "block";
+    window.scrollBy({ top: 300, behavior: "smooth" });
+}
+
+function mostrarBusqueda() {
+    document.getElementById("buscarVeterinarias").style.display = "block";
+    window.scrollBy({ top: 300, behavior: "smooth" });
+}
+
+function mostrarMapa() {
+    document.getElementById("mapa").style.display = "block";
+    window.scrollBy({ top: 400, behavior: "smooth" });
+}
+</script>
+
+</body>
+</html>
+
+
+
+

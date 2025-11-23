@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PETLINK</title>
+
+<style>
+  body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #dcdcdc;
+  }
+
+  header {
+    background-color: #6ec5d8;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .back-arrow {
+    font-size: 40px;
+    color: white;
+    cursor: pointer;
+  }
+
+  .title {
+    color: white;
+    font-size: 28px;
+    font-weight: bold;
+    margin-right: 30px;
+  }
+
+  nav {
+    display: flex;
+    background-color: #e2e2e2;
+    border-bottom: 1px solid #b5b5b5;
+  }
+
+  nav a {
+    flex: 1;
+    padding: 12px 0;
+    text-align: center;
+    text-decoration: none;
+    color: #333;
+    font-size: 18px;
+    border-right: 1px solid #b5b5b5;
+  }
+
+  nav a:last-child {
+    border-right: none;
+  }
+
+  .container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 30px;
+  }
+
+  .main-title {
+    background: white;
+    padding: 20px 40px;
+    font-size: 24px;
+    border-radius: 10px;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.2);
+  }
+
+  .card {
+    background: white;
+    width: 400px;
+    padding: 18px;
+    margin-top: 15px;
+    font-size: 20px;
+    border-radius: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.2);
+  }
+
+  .card input[type="checkbox"] {
+    width: 22px;
+    height: 22px;
+  }
+
+  .btn {
+    margin-top: 25px;
+    padding: 12px 35px;
+    background-color: #6ec5d8;
+    color: white;
+    border: none;
+    font-size: 20px;
+    border-radius: 8px;
+    cursor: pointer;
+  }
+</style>
+</head>
+
+<body>
+
+<header>
+  <div class="back-arrow">&#8592;</div>
+  <div class="title">PETLINK</div>
+</header>
+
+<nav>
+  <a href="index.html">Inicio</a>
+  <a href="#">Perreras</a>
+  <a href="#">Usuarios</a>
+  <a href="#">Sobre nosotros</a>
+</nav>
+
+<div class="container">
+  <div class="main-title">Cuidados sobre mascotas</div>
+
+  <div class="card">
+    Vacunas
+    <input id="checkVacunas" type="checkbox" checked>
+  </div>
+
+  <div class="card">
+    Alimentos recomendados
+    <input id="checkAlimentos" type="checkbox">
+  </div>
+
+  <div class="card">
+    Adopción responsable
+    <input id="checkAdopcion" type="checkbox">
+  </div>
+
+  <div class="card">
+    Bienestar animal
+    <input id="checkBienestar" type="checkbox">
+  </div>
+
+  <button class="btn" onclick="consultar()">Consultar</button>
+</div>
+
+<script>
+function consultar() {
+    const vacunas = document.getElementById("checkVacunas").checked;
+    const alimentos = document.getElementById("checkAlimentos").checked;
+    const adopcion = document.getElementById("checkAdopcion").checked;
+    const bienestar = document.getElementById("checkBienestar").checked;
+
+    if (!vacunas && !alimentos && !adopcion && !bienestar) {
+        alert("Por favor selecciona al menos una opción.");
+        return;
+    }
+
+    // Prioridad de navegación
+    if (vacunas) {
+        window.location.href = "vacunas.html";
+        return;
+    }
+    if (alimentos) {
+        window.location.href = "alimentos.html";
+        return;
+    }
+    if (adopcion) {
+        window.location.href = "adopcion.html";
+        return;
+    }
+    if (bienestar) {
+        window.location.href = "bienestar.html";
+        return;
+    }
+}
+</script>
+
+</body>
+</html>
+

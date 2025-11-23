@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Registro de Mascota - PETLINK</title>
+  <style>
+    body {
+      font-family: "Poppins", sans-serif;
+      background-color: #dcdcdc;
+      margin: 0;
+      padding: 0;
+    }
+
+    header {
+      background-color: #6fc0cf;
+      color: white;
+      text-align: right;
+      padding: 15px 25px;
+      font-size: 20px;
+      position: relative;
+    }
+
+    header .back-btn {
+      position: absolute;
+      left: 20px;
+      top: 15px;
+      background: none;
+      border: none;
+      cursor: pointer;
+    }
+
+    header .back-btn img {
+      width: 25px;
+      height: 25px;
+    }
+
+    .container {
+      max-width: 400px;
+      background-color: #cfcfcf;
+      margin: 40px auto;
+      border-radius: 15px;
+      padding: 30px;
+      text-align: center;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    .photo-upload {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      background-color: #f2eaea;
+      margin: 0 auto;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 14px;
+      color: #777;
+      cursor: pointer;
+    }
+
+    input[type="file"] {
+      display: none;
+    }
+
+    label {
+      display: block;
+      margin-top: 15px;
+      font-size: 15px;
+      color: #333;
+    }
+
+    input[type="text"], select {
+      width: 80%;
+      padding: 8px;
+      margin-top: 8px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 14px;
+    }
+
+    .row {
+      display: flex;
+      justify-content: space-around;
+      margin-top: 20px;
+    }
+
+    .next-btn {
+      background-color: #6fc0cf;
+      border: none;
+      color: white;
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      cursor: pointer;
+      margin-top: 25px;
+      font-size: 24px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .next-btn:hover {
+      background-color: #5aa8b8;
+    }
+
+  </style>
+</head>
+<body>
+
+  <header>
+    <button class="back-btn" onclick="window.history.back()">
+      <img src="https://cdn-icons-png.flaticon.com/512/271/271220.png" alt="Volver">
+    </button>
+    PETLINK
+  </header>
+
+  <div class="container">
+    <label for="foto" class="photo-upload">Subir foto</label>
+    <input type="file" id="foto" accept="image/*">
+
+    <label for="nombre">Nombre</label>
+    <input type="text" id="nombre" placeholder="Ingrese el nombre">
+
+    <div class="row">
+      <div>
+        <label for="edad">Edad</label>
+        <select id="edad">
+          <option value="">--</option>
+          <option value="1">1 año</option>
+          <option value="2">2 años</option>
+          <option value="3">3 años</option>
+          <option value="4">4 años</option>
+          <option value="5">5 años</option>
+          <option value="6">6 años</option>
+        </select>
+      </div>
+      <div>
+        <label for="tamano">Tamaño</label>
+        <select id="tamano">
+          <option value="">--</option>
+          <option value="pequeño">Pequeño</option>
+          <option value="mediano">Mediano</option>
+          <option value="grande">Grande</option>
+        </select>
+      </div>
+    </div>
+
+    <label for="salud">Estado de salud</label>
+    <input type="text" id="salud" placeholder="Ej. Vacunado, en tratamiento, etc.">
+
+    <button class="next-btn" onclick="window.location.href='siguiente.html'">→</button>
+  </div>
+
+</body>
+</html>

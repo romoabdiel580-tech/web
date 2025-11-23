@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PETLINK - Subir foto</title>
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      margin: 0;
+      background-color: #e9f3f5;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    header {
+      background-color: #6ec5d8;
+      color: white;
+      text-align: right;
+      padding: 15px 20px;
+      font-size: 24px;
+      position: relative;
+      font-weight: bold;
+    }
+
+    .back-arrow {
+      position: absolute;
+      left: 15px;
+      top: 10px;
+      font-size: 30px;
+      color: white;
+      text-decoration: none;
+      transition: 0.2s;
+    }
+    .back-arrow:hover {
+      color: #dcdcdc;
+    }
+
+    nav {
+      display: flex;
+      justify-content: center;
+      background-color: #ccc;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+
+    nav a {
+      flex: 1;
+      text-align: center;
+      padding: 12px;
+      text-decoration: none;
+      color: #333;
+      font-weight: bold;
+      border-right: 1px solid #aaa;
+      transition: background-color 0.2s;
+    }
+
+    nav a:hover {
+      background-color: #b5e3ec;
+    }
+
+    nav a:last-child {
+      border-right: none;
+    }
+
+    .container {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 30px;
+    }
+
+    .upload-box {
+      background-color: #fff;
+      border-radius: 15px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      width: 330px;
+      text-align: center;
+      padding: 25px;
+      transition: transform 0.3s ease;
+    }
+
+    .upload-box:hover {
+      transform: scale(1.02);
+    }
+
+    .preview {
+      width: 100%;
+      height: 220px;
+      background-color: #f0f0f0;
+      border-radius: 10px;
+      margin-bottom: 15px;
+      object-fit: cover;
+      border: 2px dashed #6ec5d8;
+      transition: 0.3s ease;
+    }
+
+    .upload-box p {
+      font-size: 16px;
+      color: #333;
+      margin: 10px 0;
+    }
+
+    input[type="file"] {
+      display: none;
+    }
+
+    .upload-box label,
+    .delete-btn {
+      display: inline-block;
+      background-color: #6ec5d8;
+      color: white;
+      padding: 10px 25px;
+      border-radius: 25px;
+      cursor: pointer;
+      font-size: 15px;
+      margin: 5px;
+      box-shadow: 2px 2px 5px rgba(0,0,0,0.2);
+      transition: background-color 0.3s;
+    }
+
+    .upload-box label:hover {
+      background-color: #57b4c9;
+    }
+
+    .delete-btn {
+      background-color: #e57373;
+    }
+
+    .delete-btn:hover {
+      background-color: #d9534f;
+    }
+
+    footer {
+      text-align: center;
+      padding: 15px;
+      background-color: #6ec5d8;
+      color: white;
+      font-size: 14px;
+      border-top: 3px solid #5bb5c8;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <a href="index.html" class="back-arrow">&#8592;</a>
+    PETLINK
+  </header>
+
+  <nav>
+    <a href="index.html">Inicio</a>
+    <a href="perreras.html">Perreras</a>
+    <a href="usuarios.html">Usuarios</a>
+    <a href="sobre_nosotros.html">Sobre nosotros</a>
+  </nav>
+
+  <div class="container">
+    <div class="upload-box">
+      <img id="previewImage" class="preview" src="" alt="Vista previa de la imagen">
+      <p>Subir o cambiar tu foto</p>
+      <input type="file" id="fileInput" accept="image/*">
+      <label for="fileInput">Seleccionar imagen</label>
+      <button class="delete-btn" id="deleteImage">Eliminar imagen</button>
+    </div>
+  </div>
+
+  <footer>
+    © 2025 Petlink - Todos los derechos reservados
+  </footer>
+
+  <script>
+    const fileInput = document.getElementById('fileInput');
+    const previewImage = document.getElementById('previewImage');
+    const deleteBtn = document.getElementById('deleteImage');
+
+    // Cargar imagen guardada en localStorage
+    const imagenGuardada = localStorage.getItem('fotoPerfil');
+    if (imagenGuardada) {
+      previewImage.src = imagenGuardada;
+    }
+
+    // Cuando se selecciona una nueva imagen
+    fileInput.addEventListener('change', function(event) {
+      const file = event.target.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          previewImage.src = e.target.result;
+          localStorage.setItem('fotoPerfil', e.target.result); // Guardar en localStorage
+        };
+        reader.readAsDataURL(file);
+      }
+    });
+
+    // Eliminar imagen
+    deleteBtn.addEventListener('click', () => {
+      previewImage.src = "";
+      localStorage.removeItem('fotoPerfil');
+      alert("Imagen eliminada correctamente ❌");
+    });
+  </script>
+</body>
+</html>
+

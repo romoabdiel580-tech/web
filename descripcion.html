@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Comportamiento - PETLINK</title>
+  <style>
+    body {
+      font-family: "Poppins", sans-serif;
+      background-color: #dcdcdc;
+      margin: 0;
+      padding: 0;
+    }
+
+    header {
+      background-color: #6fc0cf;
+      color: white;
+      text-align: right;
+      padding: 15px 25px;
+      font-size: 20px;
+      position: relative;
+    }
+
+    header .back-btn {
+      position: absolute;
+      left: 20px;
+      top: 15px;
+      background: none;
+      border: none;
+      cursor: pointer;
+    }
+
+    header .back-btn img {
+      width: 25px;
+      height: 25px;
+    }
+
+    .container {
+      max-width: 400px;
+      background-color: #cfcfcf;
+      margin: 50px auto;
+      border-radius: 15px;
+      padding: 40px;
+      text-align: left;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    label {
+      display: block;
+      margin-top: 15px;
+      font-size: 16px;
+      color: #333;
+    }
+
+    textarea {
+      width: 100%;
+      height: 70px;
+      margin-top: 8px;
+      padding: 10px;
+      border-radius: 10px;
+      border: 1px solid #ccc;
+      font-size: 14px;
+      resize: none;
+    }
+
+    .btn-guardar {
+      display: block;
+      width: 150px;
+      margin: 30px auto 0;
+      background-color: #6fc0cf;
+      color: white;
+      border: none;
+      border-radius: 20px;
+      padding: 10px;
+      font-size: 16px;
+      cursor: pointer;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+      transition: background 0.3s ease;
+    }
+
+    .btn-guardar:hover {
+      background-color: #5aa8b8;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <button class="back-btn" onclick="window.history.back()">
+      <img src="https://cdn-icons-png.flaticon.com/512/271/271220.png" alt="Volver">
+    </button>
+    PETLINK
+  </header>
+
+  <div class="container">
+    <label for="comportamiento">Comportamiento:</label>
+    <textarea id="comportamiento" placeholder="Ej. Juguetón, tranquilo, sociable..."></textarea>
+
+    <label for="descripcion">Descripción:</label>
+    <textarea id="descripcion" placeholder="Agrega una breve descripción de la mascota..."></textarea>
+
+    <button class="btn-guardar" onclick="guardarDatos()">Guardar</button>
+  </div>
+
+  <script>
+    function guardarDatos() {
+      alert("Datos guardados correctamente ✅");
+      // Aquí puedes agregar funcionalidad para enviar los datos a un servidor o guardar en localStorage
+    }
+  </script>
+
+</body>
+</html>

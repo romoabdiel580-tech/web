@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mi Perfil - Petlink</title>
+<style>
+  body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #dcdcdc;
+    margin: 0;
+    padding: 0;
+  }
+
+  header {
+    background-color: #66c3d6;
+    color: white;
+    text-align: center;
+    padding: 20px;
+    font-size: 24px;
+    font-weight: bold;
+  }
+
+  .perfil-container {
+    background-color: #f7f7f7;
+    max-width: 600px;
+    margin: 40px auto;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    text-align: center;
+  }
+
+  .perfil-foto {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    background-color: #ccc;
+    margin: 0 auto 20px;
+    background-size: cover;
+    background-position: center;
+  }
+
+  .perfil-info h2 {
+    margin: 10px 0;
+    color: #333;
+  }
+
+  .perfil-info p {
+    font-size: 16px;
+    color: #555;
+  }
+
+  .botones {
+    margin-top: 30px;
+  }
+
+  .botones button {
+    background-color: #66c3d6;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 20px;
+    cursor: pointer;
+    margin: 5px;
+    font-size: 16px;
+    font-weight: bold;
+  }
+
+  .botones button:hover {
+    background-color: #55a8b9;
+  }
+</style>
+</head>
+<body>
+
+<header>🐾 Mi Perfil</header>
+
+<div class="perfil-container">
+  <div class="perfil-foto" id="fotoPerfil"></div>
+  <div class="perfil-info">
+    <h2 id="nombreUsuario">Usuario</h2>
+    <p id="correoUsuario">Correo: -</p>
+    <p id="apellidoUsuario">Apellido: -</p>
+  </div>
+
+  <div class="botones">
+    <button id="editarPerfil">Editar Perfil</button>
+    <button id="cerrarSesion">Cerrar Sesión</button>
+    <button onclick="window.location.href='index.html'">Volver al inicio</button>
+  </div>
+</div>
+
+<script>
+// --- Cargar datos del usuario activo ---
+document.addEventListener("DOMContentLoaded", () => {
+  const usuarioActivo = localStorage.getItem("usuarioActivo");
+
+  if (!usuarioActivo) {
+    alert("No hay sesión activa. Inicia sesión primero.");
+    window.location.href = "inicio de sesion.html";
+    return;
+  }
+
+  // Datos guardados al registrarse (si existen)
+  const datosUsuarios = JSON.parse(localStorage.getItem("usuariosRegistrados")) || [];
+  const usuarioEncontrado = datosUsuarios.find(u => u.usuario === usuarioActivo || u.correo === usuarioActivo);
+
+  if (usuarioEncontrado) {
+    document.getElementById("nombreUsuario").textContent = usuarioEncontrado.usuario;
+    document.getElementById("correoUsuario").textContent = "Correo: " + usuarioEncontrado.correo;
+    document.getElementById("apellidoUsuario").textContent = "Apellido: " + (usuarioEncontrado.apellido || "-");
+    if (usuarioEncontrado.foto) {
+      document.getElementById("fotoPerfil").style.backgroundImage = `url(${usuarioEncontrado.foto})`;
+    }
+  } else {
+    // Si solo se guardó el nombre en inicio de sesión
+    document.getElementById("nombreUsuario").textContent = usuarioActivo;
+  }
+});
+
+// --- Cerrar sesión ---
+document.getElementById("cerrarSesion").addEventListener("click", () => {
+  localStorage.removeItem("usuarioActivo");
+  alert("Sesión cerrada correctamente.");
+  window.location.href = "inicio de sesion.html";
+});
+
+// --- Editar perfil (cambiar foto) ---
+document.getElementById("editarPerfil").addEventListener("click", () => {
+  const input = document.createElement("input");
+  input.type = "file";
+  input.accept = "image/*";
+  input.onchange = e => {
+    const file = e.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = ev => {
+        const nuevaFoto = ev.target.result;
+        document.getElementById("fotoPerfil").style.backgroundImage = `url(${nuevaFoto})`;
+
+        // Actualizar en localStorage
+        const usuarioActivo = localStorage.getItem("usuarioActivo");
+        const datosUsuarios = JSON.parse(localStorage.getItem("usuariosRegistrados")) || [];
+        const idx = datosUsuarios.findIndex(u => u.usuario === usuarioActivo || u.correo === usuarioActivo);
+        if (idx !== -1) {
+          datosUsuarios[idx].foto = nuevaFoto;
+          localStorage.setItem("usuariosRegistrados", JSON.stringify(datosUsuarios));
+        }
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+  input.click();
+});
+</script>
+
+</body>
+</html>
+
